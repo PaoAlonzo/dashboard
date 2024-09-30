@@ -1,0 +1,33 @@
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
+    gap: 20px;
+    padding: 20px;
+}
+
+.panel {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.weather-panel {
+    grid-column: span 1;
+}
+
+.users-panel {
+    grid-column: span 1;
+}
+
+.parking-monitor {
+    grid-column: span 1;
+}
+
+.user-details {
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
