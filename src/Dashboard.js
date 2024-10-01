@@ -1,18 +1,17 @@
 import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate para redirección
 import './Dashboard.css';
-<<<<<<< HEAD
+
 import { Chart, ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend ,RadialLinearScale } from 'chart.js';
 import { Bar, Doughnut, PolarArea,Pie  } from 'react-chartjs-2'; // Para las estadísticas
+import ClimateVisualization from './ClimateVisualization';
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 Chart.register(ArcElement, Title, Tooltip, Legend);
 Chart.register(ArcElement, Tooltip, Legend,RadialLinearScale );
 Chart.register(ArcElement, Tooltip, Legend);
-=======
-import ClimateVisualization from './ClimateVisualization';
 
->>>>>>> fdc26edb3fb9151637f62cc346bc29afc569cfbe
+
 
 const Dashboard = () => {
     const navigate = useNavigate(); // Inicializar useNavigate
