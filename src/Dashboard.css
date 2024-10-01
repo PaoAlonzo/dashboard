@@ -1,49 +1,65 @@
-/* Dashboard General Styles */
-.dashboard {
+/* Estilos Generales del Fondo de la Página */
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #a7a6e9, #e0e7ff); /* Degradado en el fondo de la página */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Contenedor del Dashboard */
+  .dashboard {
     display: grid;
     grid-template-columns: 250px 1fr;
-    height: 100vh;
-    background: linear-gradient(135deg, #f3f4f6, #e0e7ff);
-    font-family: 'Arial', sans-serif;
+    height: 100%;
+    padding: 20px; /* Espacio alrededor del contenido */
   }
   
   /* Sidebar */
   .sidebar {
-    background-color: rgb(255, 255, 255); /* Semi-transparent */
+    background-color: rgba(255, 255, 255, 0.6); /* Fondo blanco semi-transparente */
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 20px; /* Bordes redondeados en la barra lateral */
   }
   
+  /* Estilo de Logo */
   .sidebar .logo {
     font-size: 24px;
     font-weight: bold;
   }
   
+  /* Lista de Navegación */
   .sidebar ul {
     list-style-type: none;
     padding: 0;
   }
   
   .sidebar ul li {
+    position: relative;
     margin-bottom: 20px;
     padding: 10px 15px;
     border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
     display: flex;
     align-items: center;
+    color: #333;
   }
   
   .sidebar ul li span {
     margin-right: 10px;
   }
   
-  .sidebar ul li:hover, .sidebar ul li.active {
-    background-color: rgba(0, 0, 0, 0.1); /* Darken background on hover */
+  /* Efecto de Selección */
+  .sidebar ul li:hover,
+  .sidebar ul li.active {
+    background-color: rgba(255, 255, 255, 0.4); /* Fondo blanco semi-transparente en hover */
+    color: #1e3a8a; /* Color de texto al pasar el mouse */
   }
   
+  /* Botón de Cierre de Sesión */
   .sidebar .logout {
     padding: 10px 15px;
     background-color: #ff5e5e;
@@ -51,18 +67,20 @@
     border-radius: 12px;
     color: white;
     cursor: pointer;
+    transition: background-color 0.3s;
   }
   
   .sidebar .logout:hover {
     background-color: #ff3b3b;
   }
   
-  /* Main Content */
+  /* Contenido Principal */
   .main-content {
     padding: 40px;
-    background-color: rgba(223, 235, 236, 0.575); /* Semi-transparent background */
-    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco claro con opacidad */
+    border-radius: 20px; /* Bordes redondeados en el contenido principal */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 20px; /* Espacio entre la barra lateral y el contenido principal */
   }
   
   /* Header */
@@ -93,7 +111,7 @@
     margin-left: 10px;
   }
   
-  /* Cards Section */
+  /* Sección de Tarjetas */
   .cards-section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -115,7 +133,7 @@
   
   .big-card {
     grid-column: span 3;
-    background-color: #1e3a8a; /* Dark blue */
+    background-color: #1e3a8a; /* Azul oscuro */
     color: white;
   }
   
