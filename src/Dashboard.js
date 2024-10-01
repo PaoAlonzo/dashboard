@@ -98,8 +98,9 @@ const Dashboard = () => {
                     {activePanel === 'climatePanel' && (
                         <div>
                             <h2>Panel de Clima</h2>
+                            
                             <ClimateVisualization />
-                            <p>Visualización en tiempo real de temperatura y humedad.</p>
+                            
                         </div>
                     )}
 
