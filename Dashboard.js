@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate para redirección
 import './Dashboard.css';
 
-
 const Dashboard = () => {
     const navigate = useNavigate(); // Inicializar useNavigate
     const [activePanel, setActivePanel] = useState('controlPanel');
@@ -91,18 +90,13 @@ const Dashboard = () => {
                             </div>
                         </div>
                     )}
-
-
-
                     {activePanel === 'climatePanel' && (
                         <div>
                             <h2>Panel de Clima</h2>
                             <p>Visualización en tiempo real de temperatura y humedad del parqueo.</p>
-
-                            
+                            {/* Aquí podrías integrar p5.js para la visualización */}
                         </div>
                     )}
-
                     {activePanel === 'usersPanel' && (
                         <div>
                             <h2>Panel de Usuarios</h2>
