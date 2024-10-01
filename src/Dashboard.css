@@ -1,3 +1,13 @@
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #f3f4f6, #e0e7ff); /* Fondo de la página */
+}
+
+html, body {
+  margin: 0;
+  height: 100%; /* Asegúrate de que ocupen todo el alto de la ventana */
+}
+
 /* Dashboard General Styles */
 .dashboard {
     display: grid;
@@ -162,4 +172,26 @@
 .card:hover {
   transform: scale(1.02);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.panelcardParqueo {
+  display: flex;
+  flex-direction: row; 
+  flex-wrap: wrap; 
+  gap: 20px; 
+  padding: 20px; 
+  justify-content: center; 
+}
+
+
+.cardParqueo {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
