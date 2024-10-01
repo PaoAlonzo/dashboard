@@ -2,7 +2,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #a7a6e9, #e0e7ff); /* Degradado en el fondo de la página */
+    background: linear-gradient(135deg, #8de08d, #defaf6); /* Degradado en el fondo de la página */
     font-family: 'Arial', sans-serif;
   }
   
@@ -158,4 +158,4 @@ body {
     border-radius: 12px;
     padding: 10px;
   }
-  
+
