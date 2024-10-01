@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate para redirección
 import './Dashboard.css';
+import ClimateVisualization from './ClimateVisualization';
 
 
 const Dashboard = () => {
@@ -97,9 +98,8 @@ const Dashboard = () => {
                     {activePanel === 'climatePanel' && (
                         <div>
                             <h2>Panel de Clima</h2>
-                            <p>Visualización en tiempo real de temperatura y humedad del parqueo.</p>
-
-                            
+                            <ClimateVisualization />
+                            <p>Visualización en tiempo real de temperatura y humedad.</p>
                         </div>
                     )}
 
