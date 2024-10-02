@@ -23,18 +23,18 @@ const Dashboard = () => {
     };
 
     // Datos de la gráfica
-    const data = {
-        labels: ['Espacios Ocupados', 'Espacios Disponibles'],
+    const dataBarras = {
+        labels: ['Numero de Lugares Ocupados', 'Numero de Lugares Disponibles'],
         datasets: [
             {
-                label: 'Estadísticas del Parqueo',
+                label: 'Vehiculos Dentro y Fuera del Parqueo',
                 data: [20, 90], // Ejemplo: 10 ocupados y 90 disponibles
                 backgroundColor: ['rgba(153, 102, 255, 0.6)', '#9BD0F5'],
             },
         ],
     };
 
-    const options = {
+    const optionsBarras = {
         responsive: true,
         plugins: {
             legend: {
@@ -49,10 +49,10 @@ const Dashboard = () => {
 
     const DataAnillo = () => {
         const [data, setData] = useState({
-            labels: ['Espacios Ocupados', 'Espacios Disponibles'],
+            labels: ['Espacio Ocupado', 'Espacio Disponibles'],
             datasets: [
                 {
-                    label: 'Monitoreo de Parqueo',
+                    label: '% de ocupacion del Parqueo',
                     data: [10, 90],
                     backgroundColor: ['#36a2eb', '#ffce56'],
                     borderWidth: 1,
@@ -66,10 +66,10 @@ const Dashboard = () => {
                 const newAvailable = 100 - newOccupied;
     
                 setData({
-                    labels: ['Espacios Ocupados', 'Espacios Disponibles'],
+                    labels: ['Espacio Ocupados', 'Espacio Disponibles'],
                     datasets: [
                         {
-                            label: 'Monitoreo de Parqueo',
+                            label: '% de ocupacion del Parqueo',
                             data: [newOccupied, newAvailable],
                             backgroundColor: ['#36a2eb', '#ffce56'],
                         },
@@ -108,26 +108,26 @@ const Dashboard = () => {
     };*/
 
     const dataPolarArea = {
-        labels: ['Rojo', 'Azul', 'Amarillo', 'Verde', 'Morado', 'Naranja'],
+        labels: ['Interno', 'Externo', 'Sin Moneda', 'Con Moneda'],
         datasets: [
             {
-                label: 'Cantidad',
-                data: [11, 16, 7, 3, 14, 6],
+                label: 'Porcentaje',
+                data: [11, 16, 7, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.6)',
                     'rgba(54, 162, 235, 0.6)',
                     'rgba(255, 206, 86, 0.6)',
                     'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 159, 64, 0.6)',
+                    //'rgba(153, 102, 255, 0.6)',
+                    //'rgba(255, 159, 64, 0.6)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
+                    //'rgba(153, 102, 255, 1)',
+                    //'rgba(255, 159, 64, 1)',
                 ],
                 borderWidth: 1,
             },
@@ -142,28 +142,24 @@ const Dashboard = () => {
             },
             title: {
                 display: true,
-                text: 'Gráfico de Área Polar',
+                text: 'Gráfico Porcentaje de Usuarios Externos',
             },
         },
     };
 
     const dataPie = {
-        labels: ['Rojo', 'Azul', 'Amarillo', 'Verde'],
+        labels: ['Entrado', 'Salido'],
         datasets: [
             {
                 label: 'Cantidad',
-                data: [12, 19, 3, 5],
+                data: [12, 19],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(153, 102, 255, 1)',
                     'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
+                    'rgba(153, 102, 255, 1)',
                     'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
                 ],
                 borderWidth: 1,
             },
@@ -178,7 +174,7 @@ const Dashboard = () => {
             },
             title: {
                 display: true,
-                text: 'Gráfico de Pie',
+                text: 'Gráfico Cantidad de Ingresos y Egresos en el Dia',
             },
         },
     }
@@ -288,22 +284,22 @@ const Dashboard = () => {
                             <div className='panelcardParqueo'>
                                 {/* Aquí podrías mostrar las estadísticas del parqueo */}
                                 <div className="cardParqueo">
-                                    <h2>Panel de Monitoreo del Parqueo</h2>
-                                    <Bar data={data} options={options} />
+                                    <h2>Panel de Monitoreo Vehiculos Dentro y Fuera del Parqueo</h2>
+                                    <Bar data={dataBarras} options={optionsBarras} />
                                 </div>
 
                                 <div className="cardParqueo">
-                                    <h2>Panel de Monitoreo del Parqueo</h2>
+                                    <h2>Panel de Monitoreo Porcentaje de ocupacion del Parqueo</h2>
                                     <DataAnillo />
                                 </div>
 
                                 <div className="cardParqueo">
-                                    <h2>Panel de Monitoreo del Parqueo</h2>
+                                    <h2>Panel de Monitoreo Porcentaje de Usuarios Externos </h2>
                                     <PolarArea data={dataPolarArea} options={optionsPolarArea} />
                                 </div>
 
                                 <div className="cardParqueo">
-                                    <h2>Panel de Monitoreo del Parqueo</h2>
+                                    <h2>Panel de Monitoreo  Ingresos y Egresos durante el Dia</h2>
                                     <Pie data={dataPie} options={optionsPie} />
                                 </div>
                             </div>
