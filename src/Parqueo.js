@@ -9,13 +9,42 @@ Chart.register(ArcElement, Tooltip, Legend, RadialLinearScale);
 Chart.register(ArcElement, Tooltip, Legend);
 
 const Parqueo = () => {
+    // Estado para los datos de la gráfica de barras
+    const [vehiculosDentro, setVehiculosDentro] = useState(20); // Valor inicial de vehículos dentro
+    const [lugaresDisponibles, setLugaresDisponibles] = useState(90); // Valor inicial de lugares disponibles
+
+    useEffect(() => {
+        // Función para hacer fetch de los datos del servidor
+        const fetchVehiculosAdentro = () => {
+            fetch('http://127.0.0.1:8000/vehiculos_adentro')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Vehículos dentro:", data);
+                    if (data.vehiculos_adentro !== undefined) {
+                        setVehiculosDentro(data.vehiculos_adentro);
+                        setLugaresDisponibles(8 - data.vehiculos_adentro); // Asumiendo que hay 110 espacios totales
+                    } else {
+                        console.error('No se recibió el valor esperado:', data);
+                    }
+                })
+                .catch(error => console.error('Error al obtener vehículos dentro:', error));
+        };
+
+        // Llamar a la función inmediatamente y luego cada 10 segundos
+        fetchVehiculosAdentro();
+        const intervalId = setInterval(fetchVehiculosAdentro, 10000);
+
+        // Limpiar el intervalo cuando se desmonte el componente
+        return () => clearInterval(intervalId);
+    }, []);
+
     // Datos de la gráfica de barras
     const dataBarras = {
         labels: ['Numero de Lugares Ocupados', 'Numero de Lugares Disponibles'],
         datasets: [
             {
-                label: 'Vehículos Dentro y Fuera del Parqueo',
-                data: [20, 90],
+                label: 'Vehículos Dentro y Espacios Libres',
+                data: [vehiculosDentro, lugaresDisponibles],
                 backgroundColor: ['rgba(153, 102, 255, 0.6)', '#9BD0F5'],
             },
         ],
@@ -54,7 +83,7 @@ const Parqueo = () => {
                 const newAvailable = 100 - newOccupied;
 
                 setData({
-                    labels: ['Espacio Ocupados', 'Espacio Disponibles'],
+                    labels: ['Espacio Ocupado', 'Espacio Disponibles'],
                     datasets: [
                         {
                             label: '% de ocupación del Parqueo',
@@ -161,7 +190,7 @@ const Parqueo = () => {
 // Componente para la tarjeta
 const Card = ({ title, children }) => {
     return (
-        <div >
+        <div>
             <h2>{title}</h2>
             {children}
         </div>

@@ -31,20 +31,20 @@ const Dashboard = () => {
 
 
     // CLIMA
-    fetch('http://127.0.0.1:8000/obtener_temperatura_humedad')
-        .then(response => response.json())
-        .then(data => {
-            console.log("temperatura y humedad", data.temperatura_humedad)
-            if (data.temperatura_humedad) {
-                setTemperatura(data.temperatura_humedad.temperatura);
-                setHumedad(data.temperatura_humedad.humedad);
-                console.log("todo bien")
-            } else {
-                console.error('Fetched data is not an object:', data);
-            }
-            // console.log("temperatura configurada", temperatura)
-        })
-        .catch(error => console.error('Error fetching data:', error));
+    // fetch('http://127.0.0.1:8000/obtener_temperatura_humedad')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log("temperatura y humedad", data.temperatura_humedad)
+    //         if (data.temperatura_humedad) {
+    //             setTemperatura(data.temperatura_humedad.temperatura);
+    //             setHumedad(data.temperatura_humedad.humedad);
+    //             console.log("todo bien")
+    //         } else {
+    //             console.error('Fetched data is not an object:', data);
+    //         }
+    //         // console.log("temperatura configurada", temperatura)
+    //     })
+    //     .catch(error => console.error('Error fetching data:', error));
 
 
     const handleLogout = () => {

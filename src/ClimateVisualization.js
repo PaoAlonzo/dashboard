@@ -1,19 +1,47 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import p5 from 'p5';
 
 const ClimateVisualization = () => {
     const sketchRef = useRef();
+    const [temperature, setTemperature] = useState(25); // Static temperature by default
+    const [humidity, setHumidity] = useState(70);       // Static humidity by default
+
+    useEffect(() => {
+        // Fetch temperature and humidity every 10 seconds
+        const fetchClimateData = () => {
+            fetch('http://127.0.0.1:8000/obtener_temperatura_humedad')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("temperatura y humedad", data.temperatura_humedad)
+                    if (data.temperatura_humedad) {
+                        setTemperature(data.temperatura_humedad.temperatura);
+                        setHumidity(data.temperatura_humedad.humedad);
+                        console.log("todo bien")
+                    } else {
+                        console.error('Fetched data is not an object:', data);
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        };
+
+        // Fetch initial data
+        fetchClimateData();
+
+        // Set up interval to fetch every 10 seconds
+        const interval = setInterval(fetchClimateData, 10000);
+
+        // Clear the interval on component unmount
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         let myp5 = new p5(sketch, sketchRef.current);
         return () => {
             myp5.remove();
         };
-    }, []);
+    }, [temperature, humidity]);
 
     const sketch = (p) => {
-        let temperature = 25; // Static temperature
-        let humidity = 70;    // Static humidity
         let thermometerHeight, humidityWidth;
         let oscillation = 10;  // Amplitude for oscillation
 
