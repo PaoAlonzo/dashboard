@@ -4,54 +4,57 @@ import './Dashboard.css';
 import { Bar, Doughnut, PolarArea, Pie } from 'react-chartjs-2';
 import ClimateVisualization from './ClimateVisualization';
 
-// Dummy data for users
-const users = [
-    {
-        id: 1,
-        name: 'John Doe',
-        balance: 100,
-        status: 'Dentro',
-        lastEntry: '2024-09-20 08:00',
-        lastExit: '2024-09-20 17:00',
-        role: 'Usuario',
-        rfid: 'ABC123',
-        history: [
-            { entry: '2024-09-20 08:00', exit: '2024-09-20 17:00' },
-            { entry: '2024-09-19 09:00', exit: '2024-09-19 18:00' },
-        ],
-    },
-    {
-        id: 2,
-        name: 'Jane Smith',
-        balance: 50,
-        status: 'Fuera',
-        lastEntry: '2024-09-19 09:30',
-        lastExit: '2024-09-19 18:15',
-        role: 'Administrador',
-        rfid: 'XYZ789',
-        history: [
-            { entry: '2024-09-19 09:30', exit: '2024-09-19 18:15' },
-            { entry: '2024-09-18 08:30', exit: '2024-09-18 17:45' },
-        ],
-    },
-];
-
 const Dashboard = () => {
     const navigate = useNavigate();
     const [activePanel, setActivePanel] = useState('controlPanel');
     const [selectedUser, setSelectedUser] = useState(null);
     const [balanceChange, setBalanceChange] = useState(0);
+    const [usuarios, setUsuarios] = useState([]); // Initialize as an empty array
+
+    // CLIMA
+    const [temperatura, setTemperatura] = useState(0);
+    const [humedad, setHumedad] = useState(0);
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/obtener_usuarios')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Verifica la estructura de los datos
+                if (data.usuarios && Array.isArray(data.usuarios)) { // Verifica si 'data.usuarios' es un arreglo
+                    setUsuarios(data.usuarios); // Asigna los usuarios a la variable de estado
+                } else {
+                    console.error('Fetched data is not an array:', data);
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+
+    // CLIMA
+    fetch('http://127.0.0.1:8000/obtener_temperatura_humedad')
+        .then(response => response.json())
+        .then(data => {
+            console.log("temperatura y humedad", data.temperatura_humedad)
+            if (data.temperatura_humedad) {
+                setTemperatura(data.temperatura_humedad.temperatura);
+                setHumedad(data.temperatura_humedad.humedad);
+                console.log("todo bien")
+            } else {
+                console.error('Fetched data is not an object:', data);
+            }
+            // console.log("temperatura configurada", temperatura)
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
 
     const handleLogout = () => {
         navigate('/');
     };
 
-    // Function to handle selecting a user
     const handleUserClick = (user) => {
         setSelectedUser(user);
     };
 
-    // Function to handle balance change
     const handleBalanceChange = (e) => {
         setBalanceChange(Number(e.target.value));
     };
@@ -103,14 +106,14 @@ const Dashboard = () => {
                             <p>Listado de todos los usuarios registrados en el sistema.</p>
 
                             <div className="panelcardParqueo">
-                                {users.map((user) => (
+                                {usuarios.map((user) => (
                                     <div className="cardParqueo" key={user.id} onClick={() => handleUserClick(user)}>
-                                        <h3>{user.name}</h3>
-                                        <p>Saldo Disponible: {user.balance}</p>
-                                        <p>Estado: {user.status}</p>
-                                        <p>Último Ingreso: {user.lastEntry}</p>
-                                        <p>Último Egreso: {user.lastExit}</p>
-                                        <p>Rol: {user.role}</p>
+                                        <p>Rol: {user.tipo_usuario}</p>
+                                        <h3>Usuario: {user.usuario_id}</h3>
+                                        <p>Saldo Disponible: {user.saldo}</p>
+                                        <p>Estado: {user.estado}</p>
+                                        <p>Último Ingreso: {user.ultimo_ingreso}</p>
+                                        <p>Último Egreso: {user.ultimo_egreso}</p>
                                     </div>
                                 ))}
                             </div>
