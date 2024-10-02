@@ -7,7 +7,7 @@ body {
     background: linear-gradient(90deg, #5f3660, #704560, #82545f); /* Fondo de la página */
 }
 
-html, body {
+html, body ::before{
     margin: 0;
     height: 100%; /* Asegúrate de que ocupen todo el alto de la ventana */
 }
