@@ -11,40 +11,35 @@ const Dashboard = () => {
     const [balanceChange, setBalanceChange] = useState(0);
     const [usuarios, setUsuarios] = useState([]); // Initialize as an empty array
 
-    // CLIMA
-    const [temperatura, setTemperatura] = useState(0);
-    const [humedad, setHumedad] = useState(0);
 
+     // IMPORTANTE MIERDA
+    // que esto se actualize cada 10 segs
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/obtener_usuarios')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // Verifica la estructura de los datos
-                if (data.usuarios && Array.isArray(data.usuarios)) { // Verifica si 'data.usuarios' es un arreglo
-                    setUsuarios(data.usuarios); // Asigna los usuarios a la variable de estado
-                } else {
-                    console.error('Fetched data is not an array:', data);
-                }
-            })
-            .catch(error => console.error('Error fetching data:', error));
+        const fetchUsuarios = () => {
+            fetch('http://127.0.0.1:8000/obtener_usuarios')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Verifica la estructura de los datos
+                    if (data.usuarios && Array.isArray(data.usuarios)) { // Verifica si 'data.usuarios' es un arreglo
+                        setUsuarios(data.usuarios); // Asigna los usuarios a la variable de estado
+                    } else {
+                        console.error('Fetched data is not an array:', data);
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        };
+    
+        // Llama a la función inmediatamente y luego en intervalos de 10 segundos
+        fetchUsuarios();
+        const intervalId = setInterval(fetchUsuarios, 10000);
+    
+        // Limpia el intervalo cuando el componente se desmonta
+        return () => clearInterval(intervalId);
     }, []);
+    
 
 
-    // CLIMA
-    // fetch('http://127.0.0.1:8000/obtener_temperatura_humedad')
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log("temperatura y humedad", data.temperatura_humedad)
-    //         if (data.temperatura_humedad) {
-    //             setTemperatura(data.temperatura_humedad.temperatura);
-    //             setHumedad(data.temperatura_humedad.humedad);
-    //             console.log("todo bien")
-    //         } else {
-    //             console.error('Fetched data is not an object:', data);
-    //         }
-    //         // console.log("temperatura configurada", temperatura)
-    //     })
-    //     .catch(error => console.error('Error fetching data:', error));
+   
 
 
     const handleLogout = () => {
