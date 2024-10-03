@@ -106,7 +106,7 @@ const Dashboard = () => {
                                         <div className="cardParqueo" data-saldo={user.saldo} data-tipo_usuario={user.tipo_usuario} key={user.id} onClick={() => handleUserClick(user)}>
                                             <p>Rol: {user.tipo_usuario}</p>
                                             <h3>Usuario: {user.usuario_id}</h3>
-                                            <p>Saldo Disponible: {user.saldo}</p>
+                                            <p>Saldo Disponible: {user.saldo > 999 ? "Ilimitado" : user.saldo}</p>
                                             <p>Estado: {user.estado}</p>
                                             <p>Último Ingreso: {user.ultimo_ingreso}</p>
                                             <p>Último Egreso: {user.ultimo_egreso}</p>

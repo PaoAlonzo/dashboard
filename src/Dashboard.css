@@ -276,26 +276,26 @@
 /* Estilos para el texto de información */
 .cardParqueo p {
   font-size: 1rem;
-  color: #666;
+  color: #353434;
   margin: 0.7rem 0;
   line-height: 1.6;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 /* Estilos para la primera línea (Rol) */
 .cardParqueo p:first-of-type {
   font-weight: bold;
   font-size: 1rem;
-  color: #999;
+  color: #383838;
 }
 
 /* Colores por tipo de usuario */
 .cardParqueo[data-tipo_usuario="estudiante"] p:nth-of-type(1) {
-  color: #38c172; /* Verde para estudiantes */
+  color: #8d3107; /* Verde para estudiantes */
 }
 
 .cardParqueo[data-tipo_usuario="administrativo"] p:nth-of-type(1) {
-  color: #3490dc; /* Azul para administrativos */
+  color: #0a4f88; /* Azul para administrativos */
 }
 
 .cardParqueo:not([data-saldo="0"]) p:nth-of-type(2) {
