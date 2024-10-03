@@ -1,0 +1,50 @@
+/* Contenedor del panel de parqueo */
+.panelcardParqueo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Espacio entre las tarjetas */
+    justify-content: center; /* Centrar las tarjetas */
+    padding: 6px; /* Espacio alrededor del contenedor */
+}
+
+/* Estilos para cada tarjeta de parqueo */
+.cardParqueo {
+    background-color: white; /* Fondo blanco */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    padding: 20px; /* Espacio interior */
+    max-width: 400px; /* Ancho fijo de la tarjeta */
+    width: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para efectos */
+}
+
+/* Efecto hover para las tarjetas */
+.cardParqueo:hover {
+    transform: translateY(-5px); /* Eleva la tarjeta al pasar el ratón */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Estilos para el título dentro de las tarjetas */
+.cardParqueo h2 {
+    font-size: 1.4rem; /* Tamaño de fuente del título */
+    color: #333; /* Color del texto */
+    margin-bottom: 15px; /* Espacio inferior */
+    text-align: center; /* Centrar el texto */
+}
+
+/* Estilos globales para las gráficas */
+canvas {
+    max-width: 100%; /* Asegurar que las gráficas no excedan el ancho de la tarjeta */
+    height: auto; /* Altura automática para mantener la proporción */
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .panelcardParqueo {
+        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+        align-items: center; /* Centrar las tarjetas */
+    }
+    .cardParqueo {
+        width: 90%; /* Ampliar el ancho en pantallas pequeñas */
+    }
+}

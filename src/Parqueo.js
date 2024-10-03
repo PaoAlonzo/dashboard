@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Dashboard.css';
+import './MonitoreoParqueo.css';
 import { Chart, ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, RadialLinearScale } from 'chart.js';
 import { Bar, Doughnut, PolarArea, Pie } from 'react-chartjs-2';
 

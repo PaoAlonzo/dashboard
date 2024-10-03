@@ -17,16 +17,18 @@
   /* Espacio alrededor del contenido */
 }
 
+
 /* Sidebar */
 .sidebar {
-  background-color: rgba(255, 255, 255, 0.6);
-  /* Fondo blanco semi-transparente */
+  position: sticky; /* Cambiar a sticky */
+  top: 0; /* Se mantendrá en la parte superior al hacer scroll */
+  background-color: rgba(255, 255, 255, 0.6); /* Fondo blanco semi-transparente */
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 20px;
-  /* Bordes redondeados en la barra lateral */
+  border-radius: 20px; /* Bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Añadir sombra para un efecto de profundidad */
+  height: calc(100vh - 40px); /* Ajusta la altura del sidebar */
+  overflow-y: auto; /* Permite que el sidebar se desplace si el contenido es largo */
+  transition: all 0.3s ease-in-out; /* Animación suave para efectos */
 }
 
 /* Estilo de Logo */
@@ -60,9 +62,9 @@
 /* Efecto de Selección */
 .sidebar ul li:hover,
 .sidebar ul li.active {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.6);
   /* Fondo blanco semi-transparente en hover */
-  color: #1e3a8a;
+  color: #214097;
   /* Color de texto al pasar el mouse */
 }
 
@@ -80,6 +82,10 @@
 .sidebar .logout:hover {
   background-color: #ff3b3b;
 }
+
+
+
+
 
 /* Contenido Principal */
 .main-content {
@@ -197,7 +203,7 @@
 }
 
 
-.panelcardParqueo {
+/* .panelcardParqueo {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -208,7 +214,6 @@
 
 
 .cardParqueo {
-  /*background-color: white;*/
   background: rgb(255, 255, 255);
   background: linear-gradient(153deg, rgba(255, 255, 255, 1) 1%, rgba(204, 203, 201, 1) 43%, rgba(204, 139, 16, 1) 98%);
   padding: 20px;
@@ -219,7 +224,134 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
+} */
+
+/* Estilos para el contenedor principal de los paneles */
+.panelcardParqueo {
+  /* font-family: 'Montserrat', sans-serif; Fuente principal */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  padding: 2rem;
+  margin-top: 36px;
 }
+
+/* Estilos para cada tarjeta de usuario */
+.cardParqueo {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.08); /* Sombra más sutil */
+  padding: 2rem;
+  /* width: 320px; Tamaño ligeramente más grande */
+  min-width: 360px;
+  width: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto hover para las tarjetas */
+.cardParqueo:hover {
+  transform: translateY(-5px); /* Efecto hover de mayor elevación */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* Sombra más notable */
+}
+
+/* Estilos para el título del usuario */
+.cardParqueo h3 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px; /* Añadir espacio entre letras */
+  transition: color 0.3s ease;
+}
+
+.cardParqueo:hover h3 {
+  color: #1e1f20; /* Cambio de color en hover */
+}
+
+/* Estilos para el texto de información */
+.cardParqueo p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0.7rem 0;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Estilos para la primera línea (Rol) */
+.cardParqueo p:first-of-type {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #999;
+}
+
+/* Colores por tipo de usuario */
+.cardParqueo[data-tipo_usuario="estudiante"] p:nth-of-type(1) {
+  color: #38c172; /* Verde para estudiantes */
+}
+
+.cardParqueo[data-tipo_usuario="administrativo"] p:nth-of-type(1) {
+  color: #3490dc; /* Azul para administrativos */
+}
+
+.cardParqueo:not([data-saldo="0"]) p:nth-of-type(2) {
+  color: #1b7e44; /* Verde para usuarios con saldo positivo */
+}
+
+.cardParqueo[data-saldo="0"] p:nth-of-type(2) {
+  color: #942121; /* Rojo para usuarios con saldo negativo */
+}
+
+
+/* Agregando un sutil borde lateral dinámico */
+.cardParqueo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background-color: #484849;
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.cardParqueo:hover::before {
+  transform: scaleY(1);
+}
+
+/* Animación de entrada para las tarjetas */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.cardParqueo {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .panelcardParqueo {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cardParqueo {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
 
 /* Panel de Clima */
 .climate-visualization {
@@ -238,3 +370,4 @@
 .panel-content h2 {
   margin-bottom: 20px;
 }
+

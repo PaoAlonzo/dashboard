@@ -103,7 +103,7 @@ const Dashboard = () => {
 
                                 <div className="panelcardParqueo">
                                     {usuarios.map((user) => (
-                                        <div className="cardParqueo" key={user.id} onClick={() => handleUserClick(user)}>
+                                        <div className="cardParqueo" data-saldo={user.saldo} data-tipo_usuario={user.tipo_usuario} key={user.id} onClick={() => handleUserClick(user)}>
                                             <p>Rol: {user.tipo_usuario}</p>
                                             <h3>Usuario: {user.usuario_id}</h3>
                                             <p>Saldo Disponible: {user.saldo}</p>
