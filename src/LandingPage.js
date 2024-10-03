@@ -45,12 +45,16 @@ const LandingPage = () => {
                 <ParallaxLayer offset={0} speed={0.5} className="parallax-background">
                     <div className="content">
                         <h1>Bienvenido a Parking 4.0</h1>
-                        <p>Scroll down para iniciar sesión</p>
+                        {/* <p>↓</p> */}
+                        <a href="#login-id">
+                            Scroll-down para ingresar
+                        </a>
+
                     </div>
                 </ParallaxLayer>
 
                 <ParallaxLayer offset={1} speed={1} className="login-background">
-                    <div className="login-container">
+                    <div className="login-container" id='login-id'>
                         <h2>Iniciar Sesión</h2>
                         <form className="login-form" onSubmit={handleLogin}>
                             <input
