@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { useSpring, animated } from '@react-spring/web';
+<<<<<<< HEAD
 import { FaUser, FaLock, FaGoogle } from 'react-icons/fa'; 
+=======
+import { FaUser, FaLock, FaGoogle } from 'react-icons/fa';
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
 import r1 from './imagenes/r1.png';
 import r2 from './imagenes/r2.png';
 import r3 from './imagenes/r3.png';
@@ -14,6 +18,15 @@ const LandingPage = () => {
     const [offsetX, setOffsetX] = useState(0);
     const [offsetY, setOffsetY] = useState(0);
     const navigate = useNavigate();
+<<<<<<< HEAD
+
+    // Efecto de movimiento con el mouse
+    const handleMouseMove = (e) => {
+        setOffsetX(e.clientX / window.innerWidth);
+        setOffsetY(e.clientY / window.innerHeight);
+    };
+=======
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
 
     // Efecto de movimiento con el mouse
     const handleMouseMove = (e) => {
@@ -21,15 +34,17 @@ const LandingPage = () => {
         setOffsetY(e.clientY / window.innerHeight);
     };
 
-
-    // Función para el login ya funciona no toquen nada 😊
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
+<<<<<<< HEAD
 
+=======
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
         if (username === 'admin' && password === '123') {
             navigate('/dashboard');
         } else {
             alert('Credenciales incorrectas');
+<<<<<<< HEAD
 
 
         // URL de la API
@@ -65,6 +80,8 @@ const LandingPage = () => {
             console.error('Error:', error);
             alert('Ocurrió un error al intentar iniciar sesión'); // Mensaje de error en caso de excepción
 
+=======
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
         }
     };
 
@@ -76,7 +93,11 @@ const LandingPage = () => {
         alert(`Inicio de sesión con ${platform}`);
     };
 
+<<<<<<< HEAD
     // Control de la animación de las capas de fondo (movimiento más suave en r2 y r3)
+=======
+    // Control de la animación de las capas de fondo
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
     const parallaxStyle2 = useSpring({
         transform: `translate(${offsetX * 20}px, ${offsetY * 20}px)`, // Reduce el movimiento
     });
@@ -99,9 +120,15 @@ const LandingPage = () => {
                         }}
                     />
                 </ParallaxLayer>
+<<<<<<< HEAD
 
                 {/* Capa 2: Segunda imagen con movimiento más sutil */}
                 <ParallaxLayer offset={0} speed={0.2}> {/* Reduce la velocidad */}
+=======
+    
+                {/* Capa 2: Segunda imagen con movimiento más sutil */}
+                <ParallaxLayer offset={0} speed={0.2}>
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
                     <animated.div
                         style={{
                             ...parallaxStyle2,
@@ -113,7 +140,11 @@ const LandingPage = () => {
                         }}
                     />
                 </ParallaxLayer>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
                 {/* Capa 3: Tercera imagen con movimiento más sutil */}
                 <ParallaxLayer offset={0} speed={0.1}>
                     <animated.div
@@ -127,11 +158,16 @@ const LandingPage = () => {
                         }}
                     />
                 </ParallaxLayer>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
                 {/* Capa del contenido */}
                 <ParallaxLayer offset={0} speed={1}>
                     <div className="content">
                         <h1>Bienvenido a Parking 4.0</h1>
+<<<<<<< HEAD
 
                     </div>
                     <div className="login-container">
@@ -178,12 +214,52 @@ const LandingPage = () => {
                             <button onClick={() => handleSocialLogin('Google')} className="google">
                                 <FaGoogle /> Google
                             </button>
+=======
+                        <div className="login-container">
+                            <h2>Iniciar Sesión</h2>
+                            <form className="login-form" onSubmit={handleLogin}>
+                                <div className="input-group">
+                                    <FaUser className="input-icon" />
+                                    <input
+                                        type="text"
+                                        placeholder="Usuario"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <FaLock className="input-icon" />
+                                    <input
+                                        type="password"
+                                        placeholder="Contraseña"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <button type="submit">Ingresar</button>
+                            </form>
+                            <div className="forgot-password">
+                                <button onClick={handleForgotPassword}>¿Olvidaste tu contraseña?</button>
+                            </div>
+                            <div className="social-login">
+                                <button onClick={() => handleSocialLogin('Google')} className="google">
+                                    <FaGoogle /> Google
+                                </button>
+                            </div>
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
                         </div>
                     </div>
                 </ParallaxLayer>
             </Parallax>
         </div>
+<<<<<<< HEAD
     )};
+=======
+    );
+    
+>>>>>>> bd61e11e4ef0a9bc2237af38bfa22d1a98556552
 };
 
 export default LandingPage;
