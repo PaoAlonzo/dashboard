@@ -16,6 +16,7 @@
     max-width: 400px; /* Ancho fijo de la tarjeta */
     width: auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para efectos */
+    overflow: hidden;
 }
 
 .cardParqueo:nth-of-type(1) {   
@@ -53,3 +54,21 @@ canvas {
         width: 90%; /* Ampliar el ancho en pantallas pequeñas */
     }
 }
+
+
+/* Agregando un sutil borde lateral dinámico */
+.cardParqueo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background-color: #484849;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .cardParqueo:hover::before {
+    transform: scaleY(1);
+  }

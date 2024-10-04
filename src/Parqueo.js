@@ -50,7 +50,7 @@ const Parqueo = () => {
         labels: ['Numero de Lugares Ocupados', 'Numero de Lugares Disponibles'],
         datasets: [
             {
-                label: 'Vehículos Dentro y Espacios Libres',
+                label: '',
                 data: [vehiculosDentro, lugaresDisponibles],
                 backgroundColor: ['rgba(0, 204, 204, 0.7)', 'rgba(0, 128, 0, 0.6)'],
             },
@@ -142,6 +142,8 @@ const Parqueo = () => {
                     if (data.porcentaje_usuarios_externos !== undefined) {
                         setPorcentajeExternos(data.porcentaje_usuarios_externos);
                         setPorcentajeInternos(100 - data.porcentaje_usuarios_externos);
+                        // console.log("Porcentaje de Internos:", porcentajeInternos);
+                        // console.log("Porcentaje de Externos:", porcentajeExternos);
                     } else {
                         console.error('No se recibió el valor esperado en porcentaje de Externos:', data);
                     }
