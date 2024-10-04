@@ -8,14 +8,46 @@ const LandingPage = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate(); // Hook para redirigir
 
-    const handleLogin = (e) => {
+
+    // Función para el login ya funciona no toquen nada 😊
+    const handleLogin = async (e) => {
         e.preventDefault();
-        if (username === 'admin' && password === '123') {
-            navigate('/dashboard'); // Redirige al dashboard si las credenciales son correctas
-        } else {
-            alert('Credenciales incorrectas'); // Mensaje de error si las credenciales son incorrectas
+    
+        // URL de la API
+        const url = `http://127.0.0.1:8000/login/${username}/${password}`;
+
+        // console.log(url);
+        // console.log(username);
+        // console.log(password);
+    
+        try {
+            // Realiza la solicitud fetch
+            const response = await fetch(url, {
+                method: 'GET', // o 'POST' si tu API lo requiere
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            // Comprueba si la respuesta es exitosa
+            if (response.ok) {
+                const data = await response.json(); // Parsear la respuesta JSON
+    
+                // Verificar si el login fue exitoso
+                if (data.login === "true") {
+                    navigate('/dashboard'); // Redirige al dashboard si las credenciales son correctas
+                } else {
+                    alert('Usuario y contraseña incorrectos'); // Mensaje de error si las credenciales son incorrectas
+                }
+            } else {
+                alert('Error en la solicitud'); // Mensaje de error en caso de un fallo en la solicitud
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Ocurrió un error al intentar iniciar sesión'); // Mensaje de error en caso de excepción
         }
     };
+    
 
     return (
         <div className="LandingPage">

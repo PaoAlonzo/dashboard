@@ -12,8 +12,7 @@ const Dashboard = () => {
     const [usuarios, setUsuarios] = useState([]); // Initialize as an empty array
 
 
-     // IMPORTANTE MIERDA
-    // que esto se actualize cada 10 segs
+    // que esto se actualize cada 10 segs al igual que todos los fetch que se usen
     useEffect(() => {
         const fetchUsuarios = () => {
             fetch('http://127.0.0.1:8000/obtener_usuarios')
