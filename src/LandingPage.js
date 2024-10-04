@@ -10,7 +10,7 @@ const LandingPage = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        if (username === 'admin' && password === '123') {
+        if (username === 'admin' && password === '123') {   //prueba temporal mientras no este la base de datos conectada
             navigate('/dashboard'); // Redirige al dashboard si las credenciales son correctas
         } else {
             alert('Credenciales incorrectas'); // Mensaje de error si las credenciales son incorrectas
