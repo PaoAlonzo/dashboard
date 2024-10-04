@@ -14,8 +14,8 @@ const Parqueo = () => {
     const [lugaresDisponibles, setLugaresDisponibles] = useState(90); // Valor inicial de lugares disponibles
     const [porcentajeOcupado, setPorcentajeOcupado] = useState(20); // Valor inicial de porcentaje ocupado
     const [porcentajeDesocupado, setPorcentajeDesocupado] = useState(80); // Valor inicial de porcentaje desocupado
-    const [porcentajeInternos, setPorcentajeInternos] = useState(0); // Valor inicial de porcentaje Internos
-    const [porcentajeExternos, setPorcentajeExternos] = useState(0); // Valor inicial de porcentaje Externos
+    const [porcentajeInternos, setPorcentajeInternos] = useState(30); // Valor inicial de porcentaje Internos
+    const [porcentajeExternos, setPorcentajeExternos] = useState(90); // Valor inicial de porcentaje Externos
     const [ingresosDuranteElDia, setIngresosDuranteElDia] = useState(0); // Valor inicial de ingresos durante el dia
     const [egresosDuranteElDia, setEgresosDuranteElDia] = useState(0); // Valor inicial de egresos durante el dia
 
@@ -159,16 +159,16 @@ const Parqueo = () => {
 
     // Datos para el gráfico PolarArea
     const dataPolarArea = {
-        labels: ['Interno', 'Externo', 'Sin Moneda', 'Con Moneda'],
+        labels: ['Interno', '', 'Externo', ''],
         datasets: [
             {
                 label: 'Porcentaje',
-                data: [porcentajeInternos, porcentajeExternos, porcentajeInternos, porcentajeExternos],
+                data: [porcentajeInternos, 0, porcentajeExternos, 0],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
                     'rgba(75, 192, 192, 0.6)',
+                    '#ffff',       //'rgba(255, 206, 86, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    '#ffff',       //'rgba(54, 162, 235, 0.6)',
                 ],
                 borderWidth: 1,
             },
