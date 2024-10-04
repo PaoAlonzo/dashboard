@@ -371,3 +371,170 @@
   margin-bottom: 20px;
 }
 
+
+.register-user-form {
+  background-color: #fff;
+  padding: 40px;
+  padding-right: 60px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: auto;
+}
+
+.register-user-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: #333;
+}
+
+.register-user-form input[type="number"], 
+.register-user-form input[type="text"], 
+.register-user-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border 0.3s;
+}
+
+.register-user-form input:focus, 
+.register-user-form select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.register-user-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-user-form button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+/* Estilo general para el modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro translúcido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1001;
+}
+
+/* Estilos para los encabezados */
+.modal-content h3, .modal-content h4 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Párrafos del modal */
+.modal-content p {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Estilo de la lista del historial */
+.modal-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.modal-content ul li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Estilo para los inputs y botones */
+.modal-content input[type="number"] {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.modal-content button {
+  background-color: #2b8a2e; /* Verde para el botón de sumar */
+  color: white;
+  padding: 10px 20px;
+  /* margin: 10px; */
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-content button:hover {
+  background-color: #27802b; /* Color al pasar el mouse */
+  transform: scale(1.05); /* Efecto de agrandar ligeramente */
+}
+
+.modal-content button:active {
+  background-color: #3e8e41; /* Color cuando el botón está activo */
+  transform: scale(0.98); /* Efecto de presionar el botón */
+}
+
+.modal-content button:nth-of-type(2) {
+  background-color: #b43228; /* Rojo para el botón de restar */
+}
+
+.modal-content button:nth-of-type(2):hover {
+  background-color: #991e1c; /* Color rojo oscuro al pasar el mouse */
+}
+
+.modal-content button:nth-of-type(2):active {
+  background-color: #d32f2f; /* Color más oscuro cuando el botón está activo */
+}
+
+/* Estilo del botón cerrar */
+.modal-content button:last-child {
+  background-color: #6c757d;
+}
+
+.modal-content button:last-child:hover {
+  background-color: #5a6268;
+}

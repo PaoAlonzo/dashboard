@@ -11,6 +11,7 @@ const Dashboard = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [balanceChange, setBalanceChange] = useState(0);
     const [usuarios, setUsuarios] = useState([]);
+    // const [negarBalance, setNegarBalance] = useState(false);
 
 
     const [newUserId, setNewUserId] = useState('');
@@ -42,6 +43,7 @@ const Dashboard = () => {
                 })
                 .then(data => {
                     console.log('Usuario registrado con éxito:', data);
+                    alert('Usuario registrado con éxito!');
                     setNewUserId('');  // Resetea los inputs
                     setNewUserRfid('');
                     setNewUserType('');
@@ -105,13 +107,30 @@ const Dashboard = () => {
 
 
 
+    // Función que maneja el cambio en el input
     const handleBalanceChange = (e) => {
-        setBalanceChange(Number(e.target.value));
+        const value = e.target.value;
+        if (!isNaN(value)) {
+            const int = parseInt(value);
+            setBalanceChange(int); // Guardamos el valor numérico
+        }
     };
 
-    const updateBalance = () => {
-        if (selectedUser && balanceChange !== 0) {
-            const updatedBalance = selectedUser.saldo + balanceChange; // Calcula el nuevo saldo
+    const addBalance = () => {
+        // setNegarBalance(false); // Cambia a false porque vamos a sumar
+        updateBalance(balanceChange); // Llama a la función de actualizar saldo con el valor positivo
+    };
+
+    const subtractBalance = () => {
+        // setNegarBalance(true); // Cambia a true porque vamos a restar
+        updateBalance(-balanceChange); // Llama a la función de actualizar saldo con el valor negativo
+    };
+
+
+    const updateBalance = (amount) => {
+        if (selectedUser && amount !== 0) {
+            // Usamos el valor que ya viene de balanceChange (positivo o negativo)
+            const updatedBalance = selectedUser.saldo + amount;
 
             fetch(`http://127.0.0.1:8000/modificar_saldo/${selectedUser.usuario_id}/${updatedBalance}`, {
                 method: 'PUT', // Método PUT para modificar el saldo
@@ -128,9 +147,10 @@ const Dashboard = () => {
                     return response.json();
                 })
                 .then(data => {
-                    // Si la respuesta es exitosa
                     console.log('Saldo actualizado con éxito:', data);
-                    setSelectedUser(prev => ({ ...prev, saldo: updatedBalance })); // Actualiza el saldo en el estado local
+                    alert('Saldo actualizado con éxito!');
+                    // Actualizamos el saldo localmente
+                    setSelectedUser(prev => ({ ...prev, saldo: updatedBalance }));
                     setBalanceChange(0); // Resetea el valor del input después de actualizar
                 })
                 .catch(error => console.error('Error en la solicitud de actualización de saldo:', error));
@@ -138,7 +158,6 @@ const Dashboard = () => {
             console.error('No hay usuario seleccionado o no se ha ingresado un cambio de saldo válido.');
         }
     };
-
 
 
 
@@ -186,8 +205,8 @@ const Dashboard = () => {
                                         <div className="cardParqueo" data-saldo={user.saldo} data-tipo_usuario={user.tipo_usuario} key={user.id} onClick={() => handleUserClick(user)}>
                                             <p>Rol: {user.tipo_usuario}</p>
                                             <h3>Usuario: {user.usuario_id}</h3>
+                                            <p>Saldo Disponible: {user.saldo > 9000 ? "Ilimitado" : user.saldo}</p>
                                             <p>RFID: {user.rfid}</p>
-                                            <p>Saldo Disponible: {user.saldo > 999 ? "Ilimitado" : user.saldo}</p>
                                             <p>Estado: {user.estado}</p>
                                             <p>Último Ingreso: {user.ultimo_ingreso}</p>
                                             <p>Último Egreso: {user.ultimo_egreso}</p>
@@ -202,7 +221,7 @@ const Dashboard = () => {
                                             <p><strong>Nombre:</strong> {selectedUser.usuario_id}</p>
                                             <p><strong>Saldo Disponible:</strong> {selectedUser.saldo}</p>
                                             <p><strong>Estado:</strong> {selectedUser.estado}</p>
-                                            <p><strong>RFID (del historial):</strong> {selectedUser.rfid}</p>
+                                            <p><strong>RFID:</strong> {selectedUser.rfid}</p>
 
                                             <h4>Historial de Ingresos y Egresos</h4>
                                             <ul>
@@ -221,11 +240,12 @@ const Dashboard = () => {
                                             <h4>Modificar Saldo</h4>
                                             <input
                                                 type="number"
-                                                value={balanceChange}
+                                                value={balanceChange === 0 ? '' : balanceChange}
                                                 onChange={handleBalanceChange}
                                                 placeholder="Añadir/Restar saldo"
                                             />
-                                            <button onClick={updateBalance}>Actualizar Saldo</button>
+                                            <button onClick={addBalance}>Sumar Saldo</button>
+                                            <button onClick={subtractBalance}>Restar Saldo</button>
                                             <button onClick={() => setSelectedUser(null)}>Cerrar</button>
 
                                         </div>
@@ -237,8 +257,8 @@ const Dashboard = () => {
 
                         {activePanel === 'controlPanel' && (
                             <div>
-                                <h2>Panel de Control</h2>
-                                <p>Bienvenido al Panel de Control. Aquí puedes navegar por los diferentes paneles.</p>
+                                {/* <h2>Panel de Control</h2>
+                                <p>Bienvenido al Panel de Control. Aquí puedes navegar por los diferentes paneles.</p> */}
 
                                 <h3>Registrar nuevo usuario</h3>
                                 <div className="register-user-form">
