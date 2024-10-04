@@ -32,15 +32,16 @@ h1 {
     color: #f8f8f8; /* Color vibrante del título */
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 20px; /* Espacio debajo del título */
+    margin-bottom: 40px; /* Espacio debajo del título */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.979);
+    margin-top: 50px;
 }
 
 .login-container {
     background-color: rgba(255, 255, 255, 0.925);
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.685);
+    box-shadow: 0 8px 25px rgb(0, 0, 0);
     width: 320px;
     text-align: center;
     margin: 0 auto; /* Esto ayuda a centrar el contenedor */
@@ -66,7 +67,7 @@ h1 {
 
 
 .login-container h2 {
-    margin-bottom: 25px;
+    margin-bottom: 5px;
     color: #4a90e2; /* Bright blue from the mural */
     font-size: 1.8rem;
     font-weight: 600;
