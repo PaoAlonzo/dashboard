@@ -5,11 +5,55 @@ import ClimateVisualization from './ClimateVisualization';
 import Parqueo from './Parqueo';
 
 const Dashboard = () => {
+
     const navigate = useNavigate();
     const [activePanel, setActivePanel] = useState('controlPanel');
     const [selectedUser, setSelectedUser] = useState(null);
     const [balanceChange, setBalanceChange] = useState(0);
     const [usuarios, setUsuarios] = useState([]);
+
+
+    const [newUserId, setNewUserId] = useState('');
+    const [newUserRfid, setNewUserRfid] = useState('');
+    const [newUserType, setNewUserType] = useState('');
+
+    const handleRegisterUser = () => {
+        if (newUserId && newUserRfid && newUserType) {
+            const userData = {
+                id: newUserId,
+                rfid: newUserRfid,
+                tipo_usuario: newUserType
+            };
+
+            fetch('http://127.0.0.1:8000/registro_usuarios', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(error => {
+                            throw new Error(error.detail || 'Error desconocido al registrar el usuario');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Usuario registrado con éxito:', data);
+                    setNewUserId('');  // Resetea los inputs
+                    setNewUserRfid('');
+                    setNewUserType('');
+                })
+                .catch(error => console.error('Error al registrar usuario:', error));
+        } else {
+            console.error('Todos los campos son obligatorios.');
+        }
+    };
+
+
+
 
     useEffect(() => {
         const fetchUsuarios = () => {
@@ -43,7 +87,7 @@ const Dashboard = () => {
                 if (data.historial && Array.isArray(data.historial)) {
                     // Toma el rfid del primer registro en el historial, si existe
                     const rfid = data.historial.length > 0 ? data.historial[0].rfid : user.rfid;
-                    
+
                     setSelectedUser({
                         ...user,
                         rfid: rfid, // Incluimos el rfid del historial si está disponible
@@ -58,8 +102,8 @@ const Dashboard = () => {
             })
             .catch(error => console.error('Error fetching user history:', error));
     };
-    
-    
+
+
 
     const handleBalanceChange = (e) => {
         setBalanceChange(Number(e.target.value));
@@ -68,35 +112,35 @@ const Dashboard = () => {
     const updateBalance = () => {
         if (selectedUser && balanceChange !== 0) {
             const updatedBalance = selectedUser.saldo + balanceChange; // Calcula el nuevo saldo
-    
+
             fetch(`http://127.0.0.1:8000/modificar_saldo/${selectedUser.usuario_id}/${updatedBalance}`, {
                 method: 'PUT', // Método PUT para modificar el saldo
                 headers: {
                     'Content-Type': 'application/json',
                 },
             })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(error => {
-                        throw new Error(error.detail || 'Error desconocido');
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Si la respuesta es exitosa
-                console.log('Saldo actualizado con éxito:', data);
-                setSelectedUser(prev => ({ ...prev, saldo: updatedBalance })); // Actualiza el saldo en el estado local
-                setBalanceChange(0); // Resetea el valor del input después de actualizar
-            })
-            .catch(error => console.error('Error en la solicitud de actualización de saldo:', error));
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(error => {
+                            throw new Error(error.detail || 'Error desconocido');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Si la respuesta es exitosa
+                    console.log('Saldo actualizado con éxito:', data);
+                    setSelectedUser(prev => ({ ...prev, saldo: updatedBalance })); // Actualiza el saldo en el estado local
+                    setBalanceChange(0); // Resetea el valor del input después de actualizar
+                })
+                .catch(error => console.error('Error en la solicitud de actualización de saldo:', error));
         } else {
             console.error('No hay usuario seleccionado o no se ha ingresado un cambio de saldo válido.');
         }
     };
-    
-    
-    
+
+
+
 
     return (
         <div className="fondoDashboard">
@@ -152,41 +196,41 @@ const Dashboard = () => {
                                 </div>
 
                                 {selectedUser && (
-    <div className="modal">
-        <div className="modal-content">
-            <h3>Detalles del Usuario</h3>
-            <p><strong>Nombre:</strong> {selectedUser.usuario_id}</p>
-            <p><strong>Saldo Disponible:</strong> {selectedUser.saldo}</p>
-            <p><strong>Estado:</strong> {selectedUser.estado}</p>
-            <p><strong>RFID (del historial):</strong> {selectedUser.rfid}</p>
+                                    <div className="modal">
+                                        <div className="modal-content">
+                                            <h3>Detalles del Usuario</h3>
+                                            <p><strong>Nombre:</strong> {selectedUser.usuario_id}</p>
+                                            <p><strong>Saldo Disponible:</strong> {selectedUser.saldo}</p>
+                                            <p><strong>Estado:</strong> {selectedUser.estado}</p>
+                                            <p><strong>RFID (del historial):</strong> {selectedUser.rfid}</p>
 
-            <h4>Historial de Ingresos y Egresos</h4>
-            <ul>
-                {selectedUser.history && selectedUser.history.length > 0 ? (
-                    selectedUser.history.map((record, index) => (
-                        <li key={index}>
-                            {record.entry && <p>Ingreso: {record.entry}</p>}
-                            {record.exit && <p>Egreso: {record.exit}</p>}
-                        </li>
-                    ))
-                ) : (
-                    <p>No hay historial disponible.</p>
-                )}
-            </ul>
+                                            <h4>Historial de Ingresos y Egresos</h4>
+                                            <ul>
+                                                {selectedUser.history && selectedUser.history.length > 0 ? (
+                                                    selectedUser.history.map((record, index) => (
+                                                        <li key={index}>
+                                                            {record.entry && <p>Ingreso: {record.entry}</p>}
+                                                            {record.exit && <p>Egreso: {record.exit}</p>}
+                                                        </li>
+                                                    ))
+                                                ) : (
+                                                    <p>No hay historial disponible.</p>
+                                                )}
+                                            </ul>
 
-            <h4>Modificar Saldo</h4>
-<input
-    type="number"
-    value={balanceChange}
-    onChange={handleBalanceChange}
-    placeholder="Añadir/Restar saldo"
-/>
-<button onClick={updateBalance}>Actualizar Saldo</button>
-<button onClick={() => setSelectedUser(null)}>Cerrar</button>
+                                            <h4>Modificar Saldo</h4>
+                                            <input
+                                                type="number"
+                                                value={balanceChange}
+                                                onChange={handleBalanceChange}
+                                                placeholder="Añadir/Restar saldo"
+                                            />
+                                            <button onClick={updateBalance}>Actualizar Saldo</button>
+                                            <button onClick={() => setSelectedUser(null)}>Cerrar</button>
 
-        </div>
-    </div>
-)}
+                                        </div>
+                                    </div>
+                                )}
 
                             </div>
                         )}
@@ -195,8 +239,46 @@ const Dashboard = () => {
                             <div>
                                 <h2>Panel de Control</h2>
                                 <p>Bienvenido al Panel de Control. Aquí puedes navegar por los diferentes paneles.</p>
+
+                                <h3>Registrar nuevo usuario</h3>
+                                <div className="register-user-form">
+                                    <label>
+                                        ID:
+                                        <input
+                                            type="text"
+                                            value={newUserId}
+                                            onChange={(e) => setNewUserId(e.target.value)}
+                                            placeholder="Ingrese el ID del usuario"
+                                        />
+                                    </label>
+                                    <br />
+                                    <label>
+                                        RFID:
+                                        <input
+                                            type="text"
+                                            value={newUserRfid}
+                                            onChange={(e) => setNewUserRfid(e.target.value)}
+                                            placeholder="Ingrese el RFID del usuario"
+                                        />
+                                    </label>
+                                    <br />
+                                    <label>
+                                        Tipo de Usuario:
+                                        <select
+                                            value={newUserType}
+                                            onChange={(e) => setNewUserType(e.target.value)}
+                                        >
+                                            <option value="">Seleccione el tipo de usuario</option>
+                                            <option value="estudiante">Estudiante</option>
+                                            <option value="administrativo">Administrativo</option>
+                                        </select>
+                                    </label>
+                                    <br />
+                                    <button onClick={handleRegisterUser}>Registrar Usuario</button>
+                                </div>
                             </div>
                         )}
+
 
                         {activePanel === 'climatePanel' && (
                             <div>
