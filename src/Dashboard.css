@@ -15,6 +15,7 @@
   padding: 20px;
   overflow: auto;
   /* Espacio alrededor del contenido */
+  
 }
 
 
@@ -25,7 +26,7 @@
   background-color: rgba(255, 255, 255, 0.6); /* Fondo blanco semi-transparente */
   padding: 20px;
   border-radius: 20px; /* Bordes redondeados */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Añadir sombra para un efecto de profundidad */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.534); /* Añadir sombra para un efecto de profundidad */
   height: calc(100vh - 40px); /* Ajusta la altura del sidebar */
   overflow-y: auto; /* Permite que el sidebar se desplace si el contenido es largo */
   transition: all 0.3s ease-in-out; /* Animación suave para efectos */
@@ -86,17 +87,14 @@
 }
 
 
-
-
-
 /* Contenido Principal */
 .main-content {
   padding: 40px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.6); 
   /* Fondo blanco claro con opacidad */
   border-radius: 20px;
   /* Bordes redondeados en el contenido principal */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.534);
   margin-left: 20px;
   /* Espacio entre la barra lateral y el contenido principal */
 }

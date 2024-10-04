@@ -166,11 +166,11 @@ const Dashboard = () => {
         <div className="fondoDashboard">
             <div className="dashboard">
                 <aside className="sidebar">
-                    <div className="logo">👦🏼 Admin</div>
+                    <div className="logo"> Administrador</div>
                     <nav>
                         <ul>
                             <li className={activePanel === 'controlPanel' ? 'active' : ''} onClick={() => setActivePanel('controlPanel')}>
-                                <span>📊</span> Panel de Control
+                                <span>📊</span> Panel de Administrador
                             </li>
                             <li className={activePanel === 'climatePanel' ? 'active' : ''} onClick={() => setActivePanel('climatePanel')}>
                                 <span>🌡️</span> Panel de Clima
