@@ -58,11 +58,6 @@ const Dashboard = () => {
 
 
 
-<<<<<<< Updated upstream
-=======
-    // IMPORTANTE MIERDA
-    // que esto se actualize cada 10 segs
->>>>>>> Stashed changes
     useEffect(() => {
         const fetchUsuarios = () => {
             fetch('http://127.0.0.1:8000/obtener_usuarios')
@@ -78,25 +73,10 @@ const Dashboard = () => {
                 .catch(error => console.error('Error fetching data:', error));
         };
 
-<<<<<<< Updated upstream
         fetchUsuarios();
         const intervalId = setInterval(fetchUsuarios, 10000);
         return () => clearInterval(intervalId);
     }, []);
-=======
-        // Llama a la función inmediatamente y luego en intervalos de 10 segundos
-        fetchUsuarios();
-        const intervalId = setInterval(fetchUsuarios, 10000);
-
-        // Limpia el intervalo cuando el componente se desmonta
-        return () => clearInterval(intervalId);
-    }, []);
-
-
-
-
-
->>>>>>> Stashed changes
 
     const handleLogout = () => {
         navigate('/');
