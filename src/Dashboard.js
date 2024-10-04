@@ -9,57 +9,94 @@ const Dashboard = () => {
     const [activePanel, setActivePanel] = useState('controlPanel');
     const [selectedUser, setSelectedUser] = useState(null);
     const [balanceChange, setBalanceChange] = useState(0);
-    const [usuarios, setUsuarios] = useState([]); // Initialize as an empty array
+    const [usuarios, setUsuarios] = useState([]);
 
-
-    // que esto se actualize cada 10 segs al igual que todos los fetch que se usen
     useEffect(() => {
         const fetchUsuarios = () => {
             fetch('http://127.0.0.1:8000/obtener_usuarios')
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Verifica la estructura de los datos
-                    if (data.usuarios && Array.isArray(data.usuarios)) { // Verifica si 'data.usuarios' es un arreglo
-                        setUsuarios(data.usuarios); // Asigna los usuarios a la variable de estado
+                    console.log('Fetched data:', data);
+                    if (data.usuarios && Array.isArray(data.usuarios)) {
+                        setUsuarios(data.usuarios);
                     } else {
-                        console.error('Fetched data is not an array:', data);
+                        console.error('Fetched data is not an array or is undefined:', data);
                     }
                 })
                 .catch(error => console.error('Error fetching data:', error));
         };
-    
-        // Llama a la función inmediatamente y luego en intervalos de 10 segundos
+
         fetchUsuarios();
         const intervalId = setInterval(fetchUsuarios, 10000);
-    
-        // Limpia el intervalo cuando el componente se desmonta
         return () => clearInterval(intervalId);
     }, []);
-    
-
-
-   
-
 
     const handleLogout = () => {
         navigate('/');
     };
 
     const handleUserClick = (user) => {
-        setSelectedUser(user);
+        setSelectedUser(null); // Reseteamos el usuario seleccionado mientras cargamos nuevos datos
+        fetch(`http://127.0.0.1:8000/obtener_historial_usuario/${user.usuario_id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.historial && Array.isArray(data.historial)) {
+                    // Toma el rfid del primer registro en el historial, si existe
+                    const rfid = data.historial.length > 0 ? data.historial[0].rfid : user.rfid;
+                    
+                    setSelectedUser({
+                        ...user,
+                        rfid: rfid, // Incluimos el rfid del historial si está disponible
+                        history: data.historial.map((record) => ({
+                            entry: record.tipo_movimiento === 'ingreso' ? record.fecha_hora : null,
+                            exit: record.tipo_movimiento === 'egreso' ? record.fecha_hora : null,
+                        }))
+                    });
+                } else {
+                    console.error('Historial no disponible o datos incorrectos:', data);
+                }
+            })
+            .catch(error => console.error('Error fetching user history:', error));
     };
+    
+    
 
     const handleBalanceChange = (e) => {
         setBalanceChange(Number(e.target.value));
     };
 
     const updateBalance = () => {
-        if (selectedUser) {
-            selectedUser.balance += balanceChange;
-            setSelectedUser({ ...selectedUser });
-            setBalanceChange(0); // Reset the input after updating
+        if (selectedUser && balanceChange !== 0) {
+            const updatedBalance = selectedUser.saldo + balanceChange; // Calcula el nuevo saldo
+    
+            fetch(`http://127.0.0.1:8000/modificar_saldo/${selectedUser.usuario_id}/${updatedBalance}`, {
+                method: 'PUT', // Método PUT para modificar el saldo
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => {
+                        throw new Error(error.detail || 'Error desconocido');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Si la respuesta es exitosa
+                console.log('Saldo actualizado con éxito:', data);
+                setSelectedUser(prev => ({ ...prev, saldo: updatedBalance })); // Actualiza el saldo en el estado local
+                setBalanceChange(0); // Resetea el valor del input después de actualizar
+            })
+            .catch(error => console.error('Error en la solicitud de actualización de saldo:', error));
+        } else {
+            console.error('No hay usuario seleccionado o no se ha ingresado un cambio de saldo válido.');
         }
     };
+    
+    
+    
 
     return (
         <div className="fondoDashboard">
@@ -105,6 +142,7 @@ const Dashboard = () => {
                                         <div className="cardParqueo" data-saldo={user.saldo} data-tipo_usuario={user.tipo_usuario} key={user.id} onClick={() => handleUserClick(user)}>
                                             <p>Rol: {user.tipo_usuario}</p>
                                             <h3>Usuario: {user.usuario_id}</h3>
+                                            <p>RFID: {user.rfid}</p>
                                             <p>Saldo Disponible: {user.saldo > 999 ? "Ilimitado" : user.saldo}</p>
                                             <p>Estado: {user.estado}</p>
                                             <p>Último Ingreso: {user.ultimo_ingreso}</p>
@@ -114,35 +152,45 @@ const Dashboard = () => {
                                 </div>
 
                                 {selectedUser && (
-                                    <div className="modal">
-                                        <div className="modal-content">
-                                            <h3>Detalles del Usuario</h3>
-                                            <p>Nombre: {selectedUser.name}</p>
-                                            <p>Saldo Disponible: {selectedUser.balance}</p>
-                                            <p>RFID: {selectedUser.rfid}</p>
-                                            <h4>Historial de Ingresos y Egresos</h4>
-                                            <ul>
-                                                {selectedUser.history.map((record, index) => (
-                                                    <li key={index}>Ingreso: {record.entry}, Egreso: {record.exit}</li>
-                                                ))}
-                                            </ul>
+    <div className="modal">
+        <div className="modal-content">
+            <h3>Detalles del Usuario</h3>
+            <p><strong>Nombre:</strong> {selectedUser.usuario_id}</p>
+            <p><strong>Saldo Disponible:</strong> {selectedUser.saldo}</p>
+            <p><strong>Estado:</strong> {selectedUser.estado}</p>
+            <p><strong>RFID (del historial):</strong> {selectedUser.rfid}</p>
 
-                                            <h4>Modificar Saldo</h4>
-                                            <input
-                                                type="number"
-                                                value={balanceChange}
-                                                onChange={handleBalanceChange}
-                                                placeholder="Añadir/Restar saldo"
-                                            />
-                                            <button onClick={updateBalance}>Actualizar Saldo</button>
-                                            <button onClick={() => setSelectedUser(null)}>Cerrar</button>
-                                        </div>
-                                    </div>
-                                )}
+            <h4>Historial de Ingresos y Egresos</h4>
+            <ul>
+                {selectedUser.history && selectedUser.history.length > 0 ? (
+                    selectedUser.history.map((record, index) => (
+                        <li key={index}>
+                            {record.entry && <p>Ingreso: {record.entry}</p>}
+                            {record.exit && <p>Egreso: {record.exit}</p>}
+                        </li>
+                    ))
+                ) : (
+                    <p>No hay historial disponible.</p>
+                )}
+            </ul>
+
+            <h4>Modificar Saldo</h4>
+<input
+    type="number"
+    value={balanceChange}
+    onChange={handleBalanceChange}
+    placeholder="Añadir/Restar saldo"
+/>
+<button onClick={updateBalance}>Actualizar Saldo</button>
+<button onClick={() => setSelectedUser(null)}>Cerrar</button>
+
+        </div>
+    </div>
+)}
+
                             </div>
                         )}
 
-                        {/* Other Panels (Control, Climate, Parking Monitoring) */}
                         {activePanel === 'controlPanel' && (
                             <div>
                                 <h2>Panel de Control</h2>
@@ -161,7 +209,6 @@ const Dashboard = () => {
                             <div>
                                 <h2>Panel de Monitoreo del Parqueo</h2>
                                 <p>Estadísticas en tiempo real del parqueo.</p>
-                                {/*TARJETAS DE PARQUEO */}
                                 <Parqueo />
                             </div>
                         )}
