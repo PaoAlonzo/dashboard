@@ -203,13 +203,13 @@ const Dashboard = () => {
                                 <h2>Panel de Usuarios</h2>
                                 <p>Listado de todos los usuarios registrados en el sistema.</p>
 
-                                <div className="panelcardParqueo">
+                                <div className="panelcardParqueoD">
                                     {usuarios.map((user) => (
-                                        <div className="cardParqueo" data-saldo={user.saldo} data-tipo_usuario={user.tipo_usuario} key={user.id} onClick={() => handleUserClick(user)}>
+                                        <div className="cardParqueoD" data-saldo={user.saldo} data-tipo_usuario={user.tipo_usuario} key={user.id} onClick={() => handleUserClick(user)}>
                                             <p>Rol: {user.tipo_usuario}</p>
                                             <h3>Usuario: {user.usuario_id}</h3>
-                                            <p>Saldo Disponible: {user.saldo > 9000 ? "Ilimitado" : user.saldo}</p>
-                                            <p>RFID: {user.rfid}</p>
+                                            <p>Saldo Disponible: {user.saldo > 9999 ? "Ilimitado" : user.saldo}</p>
+                                            {/* <p>RFID: {user.rfid}</p> */}
                                             <p>Estado: {user.estado}</p>
                                             <p>Último Ingreso: {user.ultimo_ingreso}</p>
                                             <p>Último Egreso: {user.ultimo_egreso}</p>
@@ -221,10 +221,10 @@ const Dashboard = () => {
                                     <div className="modal">
                                         <div className="modal-content">
                                             <h3>Detalles del Usuario</h3>
-                                            <p><strong>Nombre:</strong> {selectedUser.usuario_id}</p>
-                                            <p><strong>Saldo Disponible:</strong> {selectedUser.saldo}</p>
-                                            <p><strong>Estado:</strong> {selectedUser.estado}</p>
+                                            <p><strong>Usuario:</strong> {selectedUser.usuario_id}</p>
                                             <p><strong>RFID:</strong> {selectedUser.rfid}</p>
+                                            <p><strong>Saldo Disponible:</strong> {Number(selectedUser.saldo) > 9999 ? "Ilimitado" : selectedUser.saldo}</p>
+                                            <p><strong>Estado:</strong> {selectedUser.estado}</p>
 
                                             <h4>Historial de Ingresos y Egresos</h4>
                                             <ul>
@@ -259,12 +259,9 @@ const Dashboard = () => {
                         )}
 
                         {activePanel === 'controlPanel' && (
-                            <div>
-                                {/* <h2>Panel de Control</h2>
-                                <p>Bienvenido al Panel de Control. Aquí puedes navegar por los diferentes paneles.</p> */}
-
-                                <h3>Registrar nuevo usuario</h3>
+                            <div className="register-user-form-container">
                                 <div className="register-user-form">
+                                    <h3>Registrar nuevo usuario</h3>
                                     <label>
                                         ID:
                                         <input
@@ -301,6 +298,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         )}
+
 
 
                         {activePanel === 'climatePanel' && (

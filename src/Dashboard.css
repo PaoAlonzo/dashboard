@@ -215,7 +215,7 @@
 }
 
 
-/* .panelcardParqueo {
+/* .panelcardParqueoD {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -225,7 +225,7 @@
 }
 
 
-.cardParqueo {
+.cardParqueoD {
   background: rgb(255, 255, 255);
   background: linear-gradient(153deg, rgba(255, 255, 255, 1) 1%, rgba(204, 203, 201, 1) 43%, rgb(204, 138, 16) 100%);
   padding: 20px;
@@ -239,7 +239,7 @@
 } */
 
 /* Estilos para el contenedor principal de los paneles */
-.panelcardParqueo {
+.panelcardParqueoD {
   /* font-family: 'Montserrat', sans-serif; Fuente principal */
   display: flex;
   flex-wrap: wrap;
@@ -250,13 +250,13 @@
 }
 
 /* Estilos para cada tarjeta de usuario */
-.cardParqueo {
+.cardParqueoD {
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.08); /* Sombra más sutil */
   padding: 2rem;
   /* width: 320px; Tamaño ligeramente más grande */
-  min-width: 360px;
+  min-width: 420px;
   width: auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
@@ -265,13 +265,13 @@
 }
 
 /* Efecto hover para las tarjetas */
-.cardParqueo:hover {
+.cardParqueoD:hover {
   transform: translateY(-5px); /* Efecto hover de mayor elevación */
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* Sombra más notable */
 }
 
 /* Estilos para el título del usuario */
-.cardParqueo h3 {
+.cardParqueoD h3 {
   font-size: 1.6rem;
   color: #333;
   margin-bottom: 0.7rem;
@@ -281,12 +281,12 @@
   transition: color 0.3s ease;
 }
 
-.cardParqueo:hover h3 {
+.cardParqueoD:hover h3 {
   color: #1e1f20; /* Cambio de color en hover */
 }
 
 /* Estilos para el texto de información */
-.cardParqueo p {
+.cardParqueoD p {
   font-size: 1rem;
   color: #353434;
   margin: 0.7rem 0;
@@ -295,32 +295,32 @@
 }
 
 /* Estilos para la primera línea (Rol) */
-.cardParqueo p:first-of-type {
+.cardParqueoD p:first-of-type {
   font-weight: bold;
   font-size: 1rem;
   color: #383838;
 }
 
 /* Colores por tipo de usuario */
-.cardParqueo[data-tipo_usuario="estudiante"] p:nth-of-type(1) {
-  color: #8d3107; /* Verde para estudiantes */
+.cardParqueoD[data-tipo_usuario="estudiante"] p:nth-of-type(1) {
+  color: #a70a9f; /* Verde para estudiantes */
 }
 
-.cardParqueo[data-tipo_usuario="administrativo"] p:nth-of-type(1) {
+.cardParqueoD[data-tipo_usuario="administrativo"] p:nth-of-type(1) {
   color: #0a4f88; /* Azul para administrativos */
 }
 
-.cardParqueo:not([data-saldo="0"]) p:nth-of-type(2) {
+.cardParqueoD:not([data-saldo="0"]) p:nth-of-type(2) {
   color: #1b7e44; /* Verde para usuarios con saldo positivo */
 }
 
-.cardParqueo[data-saldo="0"] p:nth-of-type(2) {
+.cardParqueoD[data-saldo="0"] p:nth-of-type(2) {
   color: #942121; /* Rojo para usuarios con saldo negativo */
 }
 
 
 /* Agregando un sutil borde lateral dinámico */
-.cardParqueo::before {
+.cardParqueoD::before {
   content: '';
   position: absolute;
   top: 0;
@@ -332,7 +332,7 @@
   transition: transform 0.3s ease;
 }
 
-.cardParqueo:hover::before {
+.cardParqueoD:hover::before {
   transform: scaleY(1);
 }
 
@@ -348,17 +348,17 @@
   }
 }
 
-.cardParqueo {
+.cardParqueoD {
   animation: fadeIn 0.5s ease;
 }
 
 /* Ajustes para dispositivos móviles */
 @media (max-width: 768px) {
-  .panelcardParqueo {
+  .panelcardParqueoD {
     flex-direction: column;
     align-items: center;
   }
-  .cardParqueo {
+  .cardParqueoD {
     width: 100%;
     margin-bottom: 20px;
   }
@@ -383,8 +383,24 @@
   margin-bottom: 20px;
 }
 
+.register-user-form-container {
+  display: flex;
+  justify-content: center;  /* Centrar horizontalmente */
+  /* align-items: center;       Centrar verticalmente */
+  height: 70vh;             /* La altura del contenedor será del 100% del viewport */
+}
 
 .register-user-form {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: auto;
+}
+
+/* .register-user-form {
   background-color: #fff;
   padding: 40px;
   padding-right: 60px;
@@ -392,7 +408,9 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: auto;
-}
+  justify-content: center;
+  align-items: center;
+} */
 
 .register-user-form label {
   display: block;
@@ -422,7 +440,7 @@
 .register-user-form button {
   width: 100%;
   padding: 12px;
-  background-color: #007bff;
+  background-color: #2263b8;
   color: white;
   border: none;
   border-radius: 4px;
@@ -432,7 +450,7 @@
 }
 
 .register-user-form button:hover {
-  background-color: #0056b3;
+  background-color: #1b19a5;
 }
 
 
@@ -485,15 +503,35 @@
 .modal-content ul {
   list-style-type: none;
   padding: 0;
+  max-height: 150px;  /* Altura máxima del área de la lista */
+  overflow-y: auto;   /* Habilitar el scroll vertical */
+  margin-bottom: 5px
 }
 
 .modal-content ul li {
-  background-color: #f9f9f9;
-  padding: 10px;
+  background-color: #f7f7f7;
+  /* padding: px; */
+  padding-left: 15px;
+  padding-top: 10px;
+  /* padding-bottom: 5px; */
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-size: 14px;
+}
+
+/* Estilo para la barra de desplazamiento (opcional) */
+.modal-content ul::-webkit-scrollbar {
+  width: 6px;  /* Ancho de la barra de scroll */
+}
+
+.modal-content ul::-webkit-scrollbar-thumb {
+  background-color: #ccc;  /* Color del pulgar de scroll */
+  border-radius: 3px;
+}
+
+.modal-content ul::-webkit-scrollbar-track {
+  background-color: #f1f1f1;  /* Color de fondo del track */
 }
 
 /* Estilo para los inputs y botones */
@@ -521,7 +559,7 @@
 }
 
 .modal-content button:hover {
-  background-color: #27802b; /* Color al pasar el mouse */
+  background-color: #15771a; /* Color al pasar el mouse */
   transform: scale(1.05); /* Efecto de agrandar ligeramente */
 }
 
@@ -531,11 +569,11 @@
 }
 
 .modal-content button:nth-of-type(2) {
-  background-color: #b43228; /* Rojo para el botón de restar */
+  background-color: #b8261c; /* Rojo para el botón de restar */
 }
 
 .modal-content button:nth-of-type(2):hover {
-  background-color: #991e1c; /* Color rojo oscuro al pasar el mouse */
+  background-color: #810a08; /* Color rojo oscuro al pasar el mouse */
 }
 
 .modal-content button:nth-of-type(2):active {
@@ -548,5 +586,5 @@
 }
 
 .modal-content button:last-child:hover {
-  background-color: #5a6268;
+  background-color: #474f55;
 }

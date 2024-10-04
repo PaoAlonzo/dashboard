@@ -21,14 +21,34 @@ const LandingPage = () => {
         setOffsetY(e.clientY / window.innerHeight);
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        if (username === 'admin' && password === '123') {
-            navigate('/dashboard');
-        } else {
-            alert('Credenciales incorrectas');
+        
+        try {
+            // Realizar la solicitud GET con el usuario y contraseña
+            const response = await fetch(`http://127.0.0.1:8000/login/${username}/${password}`);
+            
+            // Verificar si la solicitud fue exitosa
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Validar si el login fue exitoso
+                if (data.login === "true") {
+                    navigate('/dashboard');  // Redirigir a la página de dashboard
+                } else {
+                    alert('Credenciales incorrectas');
+                }
+            } else if (response.status === 404) {
+                alert('Usuario no encontrado');
+            } else {
+                alert('Error en la autenticación');
+            }
+        } catch (error) {
+            console.error('Error en la solicitud:', error);
+            alert('Error de red o en el servidor');
         }
     };
+    
 
     const handleForgotPassword = () => {
         alert('Funcionalidad de recuperación de contraseña');
