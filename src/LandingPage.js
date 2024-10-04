@@ -12,6 +12,7 @@ const LandingPage = () => {
     // Función para el login ya funciona no toquen nada 😊
     const handleLogin = async (e) => {
         e.preventDefault();
+<<<<<<< HEAD
     
         // URL de la API
         const url = `http://127.0.0.1:8000/login/${username}/${password}`;
@@ -45,6 +46,12 @@ const LandingPage = () => {
         } catch (error) {
             console.error('Error:', error);
             alert('Ocurrió un error al intentar iniciar sesión'); // Mensaje de error en caso de excepción
+=======
+        if (username === 'admin' && password === '123') {   //prueba temporal mientras no este la base de datos conectada
+            navigate('/dashboard'); // Redirige al dashboard si las credenciales son correctas
+        } else {
+            alert('Credenciales incorrectas'); // Mensaje de error si las credenciales son incorrectas
+>>>>>>> 7d6dd15c615f1cc1a76012eedc5cf9c99c174973
         }
     };
     
