@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import ClimateVisualization from './ClimateVisualization';
 import Parqueo from './Parqueo';
-import usericon from './imagenes/usericon.png';
 
 const Dashboard = () => {
 
@@ -58,11 +57,6 @@ const Dashboard = () => {
 
 
 
-<<<<<<< Updated upstream
-=======
-    // IMPORTANTE MIERDA
-    // que esto se actualize cada 10 segs
->>>>>>> Stashed changes
     useEffect(() => {
         const fetchUsuarios = () => {
             fetch('http://127.0.0.1:8000/obtener_usuarios')
@@ -78,25 +72,10 @@ const Dashboard = () => {
                 .catch(error => console.error('Error fetching data:', error));
         };
 
-<<<<<<< Updated upstream
         fetchUsuarios();
         const intervalId = setInterval(fetchUsuarios, 10000);
         return () => clearInterval(intervalId);
     }, []);
-=======
-        // Llama a la función inmediatamente y luego en intervalos de 10 segundos
-        fetchUsuarios();
-        const intervalId = setInterval(fetchUsuarios, 10000);
-
-        // Limpia el intervalo cuando el componente se desmonta
-        return () => clearInterval(intervalId);
-    }, []);
-
-
-
-
-
->>>>>>> Stashed changes
 
     const handleLogout = () => {
         navigate('/');
@@ -104,7 +83,7 @@ const Dashboard = () => {
 
     const handleUserClick = (user) => {
         setSelectedUser(null); // Reseteamos el usuario seleccionado mientras cargamos nuevos datos
-        fetch(`http://127.0.0.1:8000/obtener_historial_usuario/${user.usuario_id}`)
+        fetch(http://127.0.0.1:8000/obtener_historial_usuario/${user.usuario_id})
             .then(response => response.json())
             .then(data => {
                 if (data.historial && Array.isArray(data.historial)) {
@@ -153,7 +132,7 @@ const Dashboard = () => {
             // Usamos el valor que ya viene de balanceChange (positivo o negativo)
             const updatedBalance = selectedUser.saldo + amount;
 
-            fetch(`http://127.0.0.1:8000/modificar_saldo/${selectedUser.usuario_id}/${updatedBalance}`, {
+            fetch(http://127.0.0.1:8000/modificar_saldo/${selectedUser.usuario_id}/${updatedBalance}, {
                 method: 'PUT', // Método PUT para modificar el saldo
                 headers: {
                     'Content-Type': 'application/json',
@@ -210,10 +189,8 @@ const Dashboard = () => {
                     <header className="header">
                         <input type="text" className="search" placeholder="Buscar" />
                         <div className="user">
-                            <div className="userName">
-                                <span>Admin</span>
-                            </div>
-                            <img src={usericon} alt="User Profile" className="user-avatar" />
+                            <span>Admin</span>
+                            <img src="https://via.placeholder.com/40" alt="User Profile" className="user-avatar" />
                         </div>
                     </header>
 
